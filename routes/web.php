@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [\App\Http\Controllers\TodoController::class, 'index'])->name('todo.index');
+Route::get('/create', [\App\Http\Controllers\TodoController::class, 'create'])->name('todo.create');
+Route::post('/store', [\App\Http\Controllers\TodoController::class, 'store'])->name('todo.store');
