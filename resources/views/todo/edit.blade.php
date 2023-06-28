@@ -19,24 +19,24 @@
 </div>
 @endif
 
-<form method="post" action="{{ route('todo.store') }}" autocomplete="off">
+<form method="post" action="{{ route('todo.update', ['todoId' => $todo->id]) }}" autocomplete="off">
     @csrf
     @method('PUT')
 
     <div class="mb-3">
         <label for="name" class="form-label">Название</label>
-        <input type="text" class="form-control" name="name" id="name" required>
+        <input type="text" class="form-control" name="name" id="name" required value="{{$todo->name}}">
     </div>
     <div class="mb-3">
         <label for="priority_id" class="form-label">Приоритет</label>
         <select class="form-select" name="priority_id" id="priority_id" required>
             @foreach($priorities as $priority)
-            <option value="{{$priority->id}}">{{$priority->name}}</option>
+            <option value="{{$priority->id}}" {{ $todo->priority_id == $priority->id ? 'selected' : '' }}>{{$priority->name}}</option>
             @endforeach
         </select>
     </div>
 
-    <button type="submit" class="btn btn-primary mb-3">Добавить</button>
+    <button type="submit" class="btn btn-primary mb-3">Сохранить</button>
 </form>
 
 @endsection

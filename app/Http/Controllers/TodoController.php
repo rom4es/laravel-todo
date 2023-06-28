@@ -71,7 +71,7 @@ class TodoController extends Controller
      */
     public function edit($id)
     {
-        $todo = Todo::where('id', $id)->get();
+        $todo = Todo::where('id', $id)->first();
         $priorities = Priority::get();
         return view('todo.edit', ['todo' => $todo, 'priorities' => $priorities]);
     }

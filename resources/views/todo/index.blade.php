@@ -29,7 +29,9 @@
                 @else
                 <i class="bi bi-check-circle cursor-pointer me-2" style="color: green;"></i>
                 @endif
-                <i class="bi bi-pencil-fill cursor-pointer me-2"></i>
+                <a href="{{ route('todo.edit', ['todoId' => $todo->id]) }}">
+                    <i class="bi bi-pencil-fill cursor-pointer me-2"></i>
+                </a>
                 <i class="bi bi-trash-fill cursor-pointer"></i>
             </td>
         </tr>
