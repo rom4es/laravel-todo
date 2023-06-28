@@ -11,29 +11,29 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Название</th>
+            <th scope="col">Приоритет</th>
             <th scope="col">Статус</th>
-            <th scope="col">Проиритет</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
+        @foreach($todos as $todo)
         <tr>
-            <td>1</td>
-            <td>Текст Текст Текст</td>
-            <td>Выполнено</td>
-            <td>Высокий</td>
+            <td>{{$todo->id}}</td>
+            <td>{{$todo->name}}</td>
+            <td>{{$todo->priority->name}}</td>
+            <td>{{$todo->getDoneValue()}}</td>
+            <td style="width: 92px">
+                @if($todo->done)
+                <i class="bi bi-x-circle-fill cursor-pointer me-2"></i>
+                @else
+                <i class="bi bi-check-circle cursor-pointer me-2" style="color: green;"></i>
+                @endif
+                <i class="bi bi-pencil-fill cursor-pointer me-2"></i>
+                <i class="bi bi-trash-fill cursor-pointer"></i>
+            </td>
         </tr>
-        <tr>
-            <td>1</td>
-            <td>Текст Текст Текст</td>
-            <td>Выполнено</td>
-            <td>Высокий</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Текст Текст Текст</td>
-            <td>Выполнено</td>
-            <td>Высокий</td>
-        </tr>
+        @endforeach
     </tbody>
 </table>
 

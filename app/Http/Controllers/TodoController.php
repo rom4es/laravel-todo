@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Priority;
+use App\Models\Todo;
 use Illuminate\Http\Request;
 
 class TodoController extends Controller
@@ -13,7 +15,8 @@ class TodoController extends Controller
      */
     public function index()
     {
-        return view('todo.index');
+        $todos = Todo::get();
+        return view('todo.index', ['todos' => $todos]);
     }
 
     /**
@@ -23,7 +26,8 @@ class TodoController extends Controller
      */
     public function create()
     {
-        return view('todo.create');
+        $priorities = Priority::get();
+        return view('todo.create', ['priorities' => $priorities]);
     }
 
     /**
@@ -34,7 +38,18 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => ['required'],
+            'priority_id' => ['required'],
+        ]);
+
+        $newTodo = Todo::create([
+            'name' => $request->name,
+            'priority_id' => $request->priority_id,
+            'done' => false
+        ]);
+
+        return redirect()->route('todo.index')->with('success', 'Запись сохранена');
     }
 
     /**
@@ -56,7 +71,9 @@ class TodoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $todo = Todo::where('id', $id)->get();
+        $priorities = Priority::get();
+        return view('todo.edit', ['todo' => $todo, 'priorities' => $priorities]);
     }
 
     /**
@@ -80,5 +97,11 @@ class TodoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function changeStatus(Request $request)
+    {
+
+        return redirect()->route('todo.index');
     }
 }
