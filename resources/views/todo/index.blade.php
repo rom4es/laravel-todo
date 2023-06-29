@@ -42,14 +42,14 @@
                         <i class="bi bi-pencil-fill cursor-pointer me-2" title="Редактировать"></i>
                     </a>
 
-                    <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteTodoModal">
+                    <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#deleteTodoModal-{{$todo->id}}">
                         <i class="bi bi-trash-fill cursor-pointer" title="Удалить"></i>
                     </button>
-                    <div class="modal fade" id="deleteTodoModal" tabindex="-1" aria-labelledby="deleteTodoModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="deleteTodoModal-{{$todo->id}}" tabindex="-1" aria-labelledby="deleteTodoModalLabel-{{$todo->id}}" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="deleteTodoModalLabel">Вы действительно хотите удалить задачу #{{$todo->id}}?</h1>
+                                    <h1 class="modal-title fs-5" id="deleteTodoModalLabel-{{$todo->id}}">Вы действительно хотите удалить задачу #{{$todo->id}}?</h1>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-footer">
