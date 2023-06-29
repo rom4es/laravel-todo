@@ -18,3 +18,5 @@ Route::get('/create', [\App\Http\Controllers\TodoController::class, 'create'])->
 Route::post('/store', [\App\Http\Controllers\TodoController::class, 'store'])->name('todo.store');
 Route::get('/{todoId}/edit', [\App\Http\Controllers\TodoController::class, 'edit'])->name('todo.edit');
 Route::put('/{todoId}', [\App\Http\Controllers\TodoController::class, 'update'])->name('todo.update');
+Route::delete('/{todoId}', [\App\Http\Controllers\TodoController::class, 'destroy'])->name('todo.destroy');
+Route::put('/changeStatus/{todoId}', [\App\Http\Controllers\TodoController::class, 'changeStatus'])->name('todo.changeStatus');

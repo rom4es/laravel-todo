@@ -49,7 +49,7 @@ class TodoController extends Controller
             'done' => false
         ]);
 
-        return redirect()->route('todo.index')->with('success', 'Запись сохранена');
+        return redirect()->route('todo.index')->with('success', 'Запись добавлена');
     }
 
     /**
@@ -85,7 +85,17 @@ class TodoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => ['required'],
+            'priority_id' => ['required'],
+        ]);
+
+        Todo::where('id', $id)->update([
+            'name' => $request->name,
+            'priority_id' => $request->priority_id,
+        ]);
+
+        return redirect()->route('todo.index')->with('success', 'Запись обновлена');
     }
 
     /**
@@ -96,12 +106,15 @@ class TodoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Todo::where('id', $id)->delete();
+        return back()->with('success', 'Запись удалена');
     }
 
-    public function changeStatus(Request $request)
+    public function changeStatus($id)
     {
+        $todo = Todo::where('id', $id)->first();
+        $todo->toggleDone()->save();
 
-        return redirect()->route('todo.index');
+        return back()->with('success', 'Статус изменен');
     }
 }
