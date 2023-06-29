@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Priority;
 use App\Models\Todo;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class TodoController extends Controller
 {
@@ -15,8 +16,11 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $todos = Todo::get();
-        return view('todo.index', ['todos' => $todos]);
+        $todos = QueryBuilder::for(Todo::class)
+            ->allowedFilters(['priority_id'])
+            ->get();
+        $priorities = Priority::get();
+        return view('todo.index', ['todos' => $todos, 'priorities' => $priorities]);
     }
 
     /**

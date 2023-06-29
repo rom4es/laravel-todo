@@ -5,7 +5,34 @@
 @section('content')
 
 <h1 class="mb-3">Список задач</h1>
-<a href="{{ route('todo.create') }}" class="btn btn-primary mb-3">Добавить задачу</a>
+<a href="{{ route('todo.create') }}" class="btn btn-primary mb-2">Добавить задачу</a>
+
+<hr />
+<form action="{{ route('todo.index') }}" method="get">
+    <div class="row mb-3">
+        <div class="col-3">
+            <label for="priority_id" class="form-label">Приоритет</label>
+            <select class="form-select" name="filter[priority_id]" id="priority_id">
+                <option value="">Любой</option>
+                @foreach($priorities as $priority)
+                <option value="{{$priority->id}}" {{ $priority->id == request()->input('filter.priority_id') ? 'selected' : '' }}>{{$priority->name}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-3 d-flex align-items-end">
+            <div class="form-check">
+                <input class="form-check-input" name="filter[onlyUnfulfilled]" type="checkbox" id="onlyUnfulfilled">
+                <label class="form-check-label" for="onlyUnfulfilled">
+                    Только невыполненные
+                </label>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">Применить фильтр</button>
+</form>
+
+<hr />
+
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
