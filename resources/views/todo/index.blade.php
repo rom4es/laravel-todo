@@ -21,7 +21,7 @@
         </div>
         <div class="col-3 d-flex align-items-end">
             <div class="form-check">
-                <input class="form-check-input" name="filter[onlyUnfulfilled]" type="checkbox" id="onlyUnfulfilled">
+                <input class="form-check-input" name="filter[onlyUnfulfilled]" type="checkbox" id="onlyUnfulfilled" value="on" {{ request()->input('filter.onlyUnfulfilled') == 'on' ? 'checked' : '' }}>
                 <label class="form-check-label" for="onlyUnfulfilled">
                     Только невыполненные
                 </label>

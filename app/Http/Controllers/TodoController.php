@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Priority;
 use App\Models\Todo;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class TodoController extends Controller
@@ -17,7 +19,14 @@ class TodoController extends Controller
     public function index()
     {
         $todos = QueryBuilder::for(Todo::class)
-            ->allowedFilters(['priority_id'])
+            ->allowedFilters([
+                'priority_id',
+                AllowedFilter::callback('onlyUnfulfilled', function (Builder $query, $value) {
+                    if ($value == 'on') {
+                        $query->where('done', 0);
+                    }
+                })
+            ])
             ->get();
         $priorities = Priority::get();
         return view('todo.index', ['todos' => $todos, 'priorities' => $priorities]);
